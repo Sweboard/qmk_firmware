@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,       KC_K,      KC_M,     SV_AE,    SV_OE,      KC_SLASH  },
 
     {XXXXXXX,  KC_ESC,   KC_TAB,    KC_HYPR,  KC_COMMA,   KC_DOT,    KC_BSPC,  LSTAB,    KC_RSHIFT,  XXXXXXX   },
-    {XXXXXXX,  KC_LALT,  KV_LCTRL,  SHIFT,    KC_SPACE,   KC_ENTER,  LAMBDA,   FN,       KC_RALT,    XXXXXXX   }
+    {XXXXXXX,  KC_LALT,  KC_LCTRL,  SHIFT,    KC_SPACE,   KC_ENTER,  LAMBDA,   FN,       KC_RALT,    XXXXXXX   }
   },
 
   /* Shift layout
@@ -109,10 +109,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *          '-----------------------------------''-----------------------------------'
    */
   [_LAMBDA] = {
-    {KC_GRV,   KC_AMPR,  KC_ASTR,  XXXXXXX,  KC_VOLU,     KC_MINS,  KC_7,     KC_8,     KC_9,     KC_10    },
+    {KC_GRV,   KC_AMPR,  KC_ASTR,  XXXXXXX,  KC_VOLU,     KC_MINS,  KC_7,     KC_8,     KC_9,     KC_LCBR  },
     {KC_QUOT,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_MUTE,     KC_LBRC,  KC_4,     KC_5,     KC_6,     KC_LPRN  },
-    {XXXXXXX,  KC_EXCL,  KC_AT,    KC_HASH,  KC_VOLD,     KC_EQL,   KC_1,     KC_2,     KC_3,     KC_BSLS  },
-    {XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SCLN,     KC_RABK,  XXXXXXX,  KC_0,     XXXXXX,   XXXXXXX  },
+    {XXXXXXX,  KC_EXLM,  KC_AT,    KC_HASH,  KC_VOLD,     KC_EQL,   KC_1,     KC_2,     KC_3,     KC_BSLS  },
+    {XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SCLN,     KC_RABK,  XXXXXXX,  KC_0,     XXXXXXX,  XXXXXXX  },
     {XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX  }
   }
 };
