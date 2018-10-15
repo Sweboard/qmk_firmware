@@ -1,30 +1,26 @@
 // vim:expandtab ts=2 sw=2
 
 #include "mitosis.h"
+#include "keymap_swedish.h"
 
-enum mitosis_layers
-{
+enum mitosis_layers {
   _DEFAULT,
   _SHIFT,
   _FN,
   _LAMBDA
 };
 
+enum mitosis_keycodes {
+  CM_LSFT = SAFE_RANGE,
+  CM_RSFT
+};
+
 #define FN MO(_FN)
-#define SHIFT MO(_SHIFT)
 #define LAMBDA MO(_LAMBDA)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-
-// Some specials
-#define LSTAB LSFT(KC_TAB) /* Left Shift + TAB */
-
-// Swedish letters
-#define SV_AA UC(0x00E5) /* Å */
-#define SV_AE UC(0x00E4) /* Ä */
-#define SV_OE UC(0x00F6) /* Ö */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -39,16 +35,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
    *          | ESC    | TAB    | HYPR   | COMMA  || DOT    | BSPC   | LSTAB  | RSHIFT |
    *          |--------+--------+--------+--------||--------+--------+--------+--------|
-   *          | LALT   | LCTRL  | SHIFT  | SPACE  || ENTER  | LAMBDA | FN     | RALT   |
+   *          | LALT   | LCTRL  | LSHIFT | SPACE  || ENTER  | LAMBDA | FN     | ALGR   |
    *          '-----------------------------------''-----------------------------------'
    */
   [_DEFAULT] = {
-    {KC_Q,     KC_W,     KC_F,      KC_P,     KC_G,       KC_J,      KC_L,     KC_U,     KC_Y,       SV_AA     },
-    {KC_A,     KC_R,     KC_S,      KC_T,     KC_D,       KC_H,      KC_N,     KC_E,     KC_I,       KC_O      },
-    {KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,       KC_K,      KC_M,     SV_AE,    SV_OE,      KC_SLASH  },
-
-    {XXXXXXX,  KC_ESC,   KC_TAB,    KC_HYPR,  KC_COMMA,   KC_DOT,    KC_BSPC,  LSTAB,    KC_RSHIFT,  XXXXXXX   },
-    {XXXXXXX,  KC_LALT,  KC_LCTRL,  SHIFT,    KC_SPACE,   KC_ENTER,  LAMBDA,   FN,       KC_RALT,    XXXXXXX   }
+    {KC_Q,     KC_W,     KC_F,      KC_P,     KC_G,      KC_J,      KC_L,     KC_U,      KC_Y,     NO_AA    },
+    {KC_A,     KC_R,     KC_S,      KC_T,     KC_D,      KC_H,      KC_N,     KC_E,      KC_I,     KC_O     },
+    {KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,      KC_K,      KC_M,     NO_AE,     NO_OSLH,  NO_SLSH  },
+    {XXXXXXX,  KC_ESC,   KC_LCTRL,  KC_TAB,   KC_COMMA,  KC_DOT,    KC_BSPC,  KC_RCTRL,  CM_RSFT,  XXXXXXX  },
+    {XXXXXXX,  KC_LALT,  FN,        CM_LSFT,  KC_SPACE,  KC_ENTER,  LAMBDA,   KC_LGUI,   NO_ALGR,  XXXXXXX  }
   },
 
   /* Shift layout
@@ -59,18 +54,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
    * | Z      | X      | C      | V      | B      || K      | M      | Ä      | Ö      | ?      |
    * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
-   *          | ______ | ______ | ______ | <      || :      | DEL    | ______ | ______ |
+   *          |        |        |        | <      || :      | DEL    |        |        |
    *          |--------+--------+--------+--------||--------+--------+--------+--------|
-   *          | ______ | ______ |        | ______ || ______ |        | ______ | ______ |
+   *          |        |        |        |        ||        |        |        |        |
    *          '-----------------------------------''-----------------------------------'
    */
   [_SHIFT] = {
-    {_______, _______, _______, _______, _______,         _______, _______, _______, _______, _______ },
-    {_______, _______, _______, _______, _______,         _______, _______, _______, _______, _______ },
-    {_______, _______, _______, _______, _______,         _______, _______, _______, _______, KC_QUES },
-
-    {XXXXXXX, _______, _______, _______, KC_LABK,         KC_COLN, KC_DEL,  _______, _______, XXXXXXX },
-    {XXXXXXX, _______, _______, XXXXXXX, _______,         _______, XXXXXXX, _______, _______, XXXXXXX }
+    {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______  },
+    {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______  },
+    {_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  NO_QUES  },
+    {XXXXXXX,  _______,  _______,  _______,  NO_LESS,  NO_COLN,  _______,  _______,  _______,  XXXXXXX  },
+    {XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX  }
   },
 
   /* Fn layout
@@ -81,18 +75,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
    * |        | MPRV   | MPLY   | MNXT   | F12    || +      | F1     | F2     | F3     | |      |
    * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
-   *          | ______ | END    | ______ |        ||        |        | HOME   | INS    |
+   *          |        | END    |        |        ||        |        | HOME   | INS    |
    *          |--------+--------+--------+--------||--------+--------+--------+--------|
-   *          | ______ | ______ |        | ______ || ______ |        | ______ | ______ |
+   *          |        |        |        |        ||        |        |        |        |
    *          '-----------------------------------''-----------------------------------'
    */
   [_FN] = {
-    {KC_TILD,  XXXXXXX,  KC_UP,    XXXXXXX,  KC_F10,      KC_UNDS,  KC_F7,    KC_F8,    KC_F9,    KC_RCBR  },
-    {KC_DQT,   KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_F11,      KC_RBRC,  KC_F4,    KC_F5,    KC_F6,    KC_RPRN  },
-    {XXXXXXX,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_F12,      KC_PLUS,  KC_F1,    KC_F2,    KC_F3,    KC_PIPE  },
-
-    {XXXXXXX,  _______,  KC_END,   _______,  _______,     _______,  _______,  KC_HOME,  KC_INS,   XXXXXXX  },
-    {XXXXXXX,  _______,  _______,  _______,  _______,     _______,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX  }
+    {NO_TILD,  _______,  KC_UP,    NO_PND,   KC_F10,   NO_UNDS,  KC_F7,    KC_F8,    KC_F9,   NO_LCBR  },
+    {NO_QUO2,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_F11,   NO_LBRC,  KC_F4,    KC_F5,    KC_F6,   NO_LPRN  },
+    {NO_EURO,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_F12,   NO_PLUS,  KC_F1,    KC_F2,    KC_F3,   NO_PIPE  },
+    {XXXXXXX,  _______,  _______,  _______,  _______,  _______,  KC_DEL,   _______,  KC_INS,  XXXXXXX  },
+    {XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_END,  XXXXXXX  }
   },
 
   /* Lambda layout
@@ -105,18 +98,44 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
    *          |        |        |        | ;      || >      | 0      |        |        |
    *          |--------+--------+--------+--------||--------+--------+--------+--------|
-   *          |        |        |        |        ||        |        |        |        |
+   *          |        |        |        |        ||        |        |        | END    |
    *          '-----------------------------------''-----------------------------------'
    */
   [_LAMBDA] = {
-    {KC_GRV,   KC_AMPR,  KC_ASTR,  XXXXXXX,  KC_VOLU,     KC_MINS,  KC_7,     KC_8,     KC_9,     KC_LCBR  },
-    {KC_QUOT,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_MUTE,     KC_LBRC,  KC_4,     KC_5,     KC_6,     KC_LPRN  },
-    {XXXXXXX,  KC_EXLM,  KC_AT,    KC_HASH,  KC_VOLD,     KC_EQL,   KC_1,     KC_2,     KC_3,     KC_BSLS  },
-    {XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_SCLN,     KC_RABK,  XXXXXXX,  KC_0,     XXXXXXX,  XXXXXXX  },
-    {XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,     XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX  }
+    {NO_GRV,   NO_AMPR,  NO_ASTR,  NO_DLR,   KC_VOLU,  NO_MINS,  KC_7,     KC_8,     KC_9,     NO_RCBR  },
+    {KC_QUOT,  KC_EXLM,  NO_AT,    KC_HASH,  KC_MUTE,  NO_RBRC,  KC_4,     KC_5,     KC_6,     NO_RPRN  },
+    {NO_ACUT,  _______,  KC_PERC,  NO_CIRC,  KC_VOLD,  NO_EQL,   KC_1,     KC_2,     KC_3,     NO_BSLS  },
+    {XXXXXXX,  _______,  _______,  _______,  NO_SCLN,  NO_GRTR,  _______,  KC_0,     _______,  XXXXXXX  },
+    {XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX  }
   }
 };
 
+void custom_shift(keyrecord_t *record, uint16_t mod, uint16_t keycode) {
+      if (record->event.pressed) {
+        register_code(keycode);
+        layer_on(_SHIFT);
+      } else {
+        layer_off(_SHIFT);
+        unregister_code(keycode);
+      }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+    case NO_LESS:
+      clear_mods(); // ignore shift key (will interfere for sv-latin1 layout with < key)
+      register_code(keycode);
+      return true;
+    case CM_LSFT:
+      custom_shift(record, keycode, KC_LSFT);
+      return true;
+    case CM_RSFT:
+      custom_shift(record, keycode, KC_RSFT);
+      return true;
+  }
+
+  return true;
+}
 
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
@@ -128,6 +147,10 @@ void matrix_scan_user(void) {
 
     case _SHIFT:
       set_led_red;
+      break;
+
+    case _LAMBDA:
+      set_led_yellow;
       break;
 
     case _FN:
