@@ -102,11 +102,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *          '-----------------------------------''-----------------------------------'
    */
   [_LAMBDA] = {
-    {NO_GRV,   NO_AMPR,  NO_ASTR,  NO_DLR,   KC_VOLU,  NO_MINS,  KC_7,     KC_8,     KC_9,     NO_RCBR  },
-    {KC_QUOT,  KC_EXLM,  NO_AT,    KC_HASH,  KC_MUTE,  NO_RBRC,  KC_4,     KC_5,     KC_6,     NO_RPRN  },
-    {NO_ACUT,  _______,  KC_PERC,  NO_CIRC,  KC_VOLD,  NO_EQL,   KC_1,     KC_2,     KC_3,     NO_BSLS  },
-    {XXXXXXX,  _______,  _______,  _______,  NO_SCLN,  NO_GRTR,  _______,  KC_0,     _______,  XXXXXXX  },
-    {XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  XXXXXXX  }
+    {NO_GRV,   NO_AMPR,  NO_ASTR,  NO_DLR,     KC_VOLU,  NO_MINS,  KC_7,     KC_8,     KC_9,     NO_RCBR  },
+    {KC_QUOT,  KC_EXLM,  NO_AT,    KC_HASH,    KC_MUTE,  NO_RBRC,  KC_4,     KC_5,     KC_6,     NO_RPRN  },
+    {NO_ACUT,  _______,  KC_PERC,  NO_CIRC,    KC_VOLD,  NO_EQL,   KC_1,     KC_2,     KC_3,     NO_BSLS  },
+    {XXXXXXX,  _______,  _______,  S(KC_TAB),  NO_SCLN,  NO_GRTR,  _______,  KC_0,     _______,  XXXXXXX  },
+    {XXXXXXX,  _______,  _______,  _______,    _______,  _______,  _______,  _______,  _______,  XXXXXXX  }
   }
 };
 
