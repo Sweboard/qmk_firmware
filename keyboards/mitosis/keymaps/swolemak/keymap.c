@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {KC_A,     KC_R,     KC_S,      KC_T,     KC_D,      KC_H,      KC_N,     KC_E,      KC_I,     KC_O     },
     {KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,      KC_K,      KC_M,     NO_AE,     NO_AA,    NO_SLSH  },
     {XXXXXXX,  KC_ESC,   KC_LCTRL,  KC_TAB,   KC_COMMA,  KC_DOT,    KC_BSPC,  KC_RCTRL,  KC_LGUI,  XXXXXXX  },
-    {XXXXXXX,  KC_LALT,  FN,        CM_LSFT,  KC_SPACE,  KC_ENTER,  CM_RSFT,  LAMBDA,    NO_ALGR,  XXXXXXX  }
+    {XXXXXXX,  KC_LALT,  FN,        CM_LSFT,  KC_SPACE,  KC_ENTER,  CM_RSFT,  LAMBDA,    KC_ALGR,  XXXXXXX  }
   },
 
   /* Shift layout
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Lambda layout
    * .--------------------------------------------..--------------------------------------------.
-   * | `      | &      | ?      | $      | VOLU   || -      | 7      | 8      | 9      | (      |
+   * | `      | ?      | &      | $      | VOLU   || -      | 7      | 8      | 9      | (      |
    * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
    * | '      | !      | @      | #      | VOLD   || +      | 4      | 5      | 6      | )      |
    * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *          '-----------------------------------''-----------------------------------'
    */
   [_LAMBDA] = {
-    {NO_GRV,   NO_AMPR,  NO_QUES,  NO_DLR,     KC_VOLU,  NO_MINS,  KC_7,     KC_8,     KC_9,     NO_LPRN  },
+    {NO_GRV,   NO_QUES,  NO_AMPR,  NO_DLR,     KC_VOLU,  NO_MINS,  KC_7,     KC_8,     KC_9,     NO_LPRN  },
     {NO_APOS,  KC_EXLM,  NO_AT,    KC_HASH,    KC_VOLD,  NO_PLUS,  KC_4,     KC_5,     KC_6,     NO_RPRN  },
     {NO_ACUT,  X(XI),    KC_PERC,  NO_CIRC,    KC_MUTE,  NO_EQL,   KC_1,     KC_2,     KC_3,     NO_ASTR  },
     {XXXXXXX,  _______,  _______,  S(KC_TAB),  NO_LESS,  NO_GRTR,  _______,  KC_0,     _______,  XXXXXXX  },
@@ -130,8 +130,18 @@ void custom_shift(keyrecord_t *record, uint16_t mod, uint16_t keycode) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
+    case NO_BSLS:
+      // Remove modifiers and re-set AltGr, Shift key interferes when using
+      // sv-latin1 and will give a 'irony' (up-side-down question mark) instead.
+      clear_mods();
+      register_code(KC_ALGR);
+      register_code(keycode);
+      clear_mods();
+      return true;
     case NO_LESS:
-      clear_mods(); // ignore shift key (will interfere for sv-latin1 layout with < key)
+      // Ignore modifiers (in this case the Shift) key as it interferes for
+      // sv-latin1 layout with < key.
+      clear_mods();
       register_code(keycode);
       return true;
     case CM_LSFT:
