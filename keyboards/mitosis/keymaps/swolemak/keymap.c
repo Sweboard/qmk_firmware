@@ -27,23 +27,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Default layout (Swedish Colemak/Swolemak)
    * .--------------------------------------------..--------------------------------------------.
-   * | q      | w      | f      | p      | g      || j      | l      | u      | y      | å      |
+   * | q      | w      | f      | p      | g      || j      | l      | u      | y      | ö      |
    * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
    * | a      | r      | s      | t      | d      || h      | n      | e      | i      | o      |
    * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
-   * | z      | x      | c      | v      | b      || k      | m      | ä      | ö      | /      |
+   * | z      | x      | c      | v      | b      || k      | m      | ä      | å      | /      |
    * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
-   *          | ESC    | TAB    | HYPR   | COMMA  || DOT    | BSPC   | LSTAB  | RSHIFT |
+   *          | ESC    | LCTRL  | TAB    | COMMA  || DOT    | BSPC   | RCTRL  | SUPER  |
    *          |--------+--------+--------+--------||--------+--------+--------+--------|
-   *          | LALT   | LCTRL  | LSHIFT | SPACE  || ENTER  | LAMBDA | FN     | ALGR   |
+   *          | LALT   | FN     | LSHIFT | SPACE  || ENTER  | RSHIFT | LAMBDA | ALGR   |
    *          '-----------------------------------''-----------------------------------'
    */
   [_DEFAULT] = {
-    {KC_Q,     KC_W,     KC_F,      KC_P,     KC_G,      KC_J,      KC_L,     KC_U,      KC_Y,     NO_AA    },
+    {KC_Q,     KC_W,     KC_F,      KC_P,     KC_G,      KC_J,      KC_L,     KC_U,      KC_Y,     NO_OSLH  },
     {KC_A,     KC_R,     KC_S,      KC_T,     KC_D,      KC_H,      KC_N,     KC_E,      KC_I,     KC_O     },
-    {KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,      KC_K,      KC_M,     NO_AE,     NO_OSLH,  NO_SLSH  },
-    {XXXXXXX,  KC_ESC,   KC_LCTRL,  KC_TAB,   KC_COMMA,  KC_DOT,    KC_BSPC,  KC_RCTRL,  CM_RSFT,  XXXXXXX  },
-    {XXXXXXX,  KC_LALT,  FN,        CM_LSFT,  KC_SPACE,  KC_ENTER,  LAMBDA,   KC_LGUI,   NO_ALGR,  XXXXXXX  }
+    {KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,      KC_K,      KC_M,     NO_AE,     NO_AA,    NO_SLSH  },
+    {XXXXXXX,  KC_ESC,   KC_LCTRL,  KC_TAB,   KC_COMMA,  KC_DOT,    KC_BSPC,  KC_RCTRL,  KC_LGUI,  XXXXXXX  },
+    {XXXXXXX,  KC_LALT,  FN,        CM_LSFT,  KC_SPACE,  KC_ENTER,  CM_RSFT,  LAMBDA,    NO_ALGR,  XXXXXXX  }
   },
 
   /* Shift layout
