@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FN] = {
     {NO_TILD,  X(BANG),  KC_UP,    NO_PND,   KC_F10,   NO_UNDS,  KC_F7,    KC_F8,    KC_F9,   NO_LCBR  },
     {NO_QUO2,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_F11,   NO_LBRC,  KC_F4,    KC_F5,    KC_F6,   NO_RCBR  },
-    {NO_EURO,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_F12,   NO_PLUS,  KC_F1,    KC_F2,    KC_F3,   NO_PIPE  },
+    {NO_EURO,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_F12,   NO_RBRC,  KC_F1,    KC_F2,    KC_F3,   NO_PIPE  },
     {XXXXXXX,  _______,  _______,  _______,  _______,  _______,  KC_DEL,   KC_HOME,  KC_INS,  XXXXXXX  },
     {XXXXXXX,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_END,  XXXXXXX  }
   },
