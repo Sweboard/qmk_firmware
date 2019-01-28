@@ -7,7 +7,8 @@ enum mitosis_layers {
   _DEFAULT,
   _SHIFT,
   _FN,
-  _LAMBDA
+  _LAMBDA,
+  _GAME
 };
 
 enum mitosis_keycodes {
@@ -25,8 +26,11 @@ const uint32_t PROGMEM unicode_map[] = {
   [XI] = 0x03BE    // ξ
 };
 
-#define FN MO(_FN)
-#define LAMBDA MO(_LAMBDA)
+ #define FN MO(_FN)
+//#define FN MT(_FN, TT(_GAME))
+//#define LAMBDA MO(_LAMBDA)
+#define LAMBDA MT(_LAMBDA, TT(_GAME))
+// #define SUPER MT(TG(_GAME), KC_LGUI)
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -104,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
    * | ´      | ξ      | %      | ^      | MUTE   || =      | 1      | 2      | 3      | *      |
    * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
-   *          |        |        | STAB   | <      || >      |        | 0      |        |
+   *          |        |        | STAB   | <      || >      |        | 0      | DOT    |
    *          |--------+--------+--------+--------||--------+--------+--------+--------|
    *          |        |        |        |        ||        |        |        |        |
    *          '-----------------------------------''-----------------------------------'
@@ -113,8 +117,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {NO_GRV,   NO_QUES,  NO_AMPR,  NO_DLR,     KC_VOLU,  NO_MINS,  KC_7,     KC_8,     KC_9,     NO_LPRN  },
     {NO_APOS,  KC_EXLM,  NO_AT,    KC_HASH,    KC_VOLD,  NO_PLUS,  KC_4,     KC_5,     KC_6,     NO_RPRN  },
     {NO_ACUT,  X(XI),    KC_PERC,  NO_CIRC,    KC_MUTE,  NO_EQL,   KC_1,     KC_2,     KC_3,     NO_ASTR  },
-    {XXXXXXX,  _______,  _______,  S(KC_TAB),  NO_LESS,  NO_GRTR,  _______,  KC_0,     _______,  XXXXXXX  },
+    {XXXXXXX,  _______,  _______,  S(KC_TAB),  NO_LESS,  NO_GRTR,  _______,  KC_0,     KC_DOT,   XXXXXXX  },
     {XXXXXXX,  _______,  _______,  _______,    _______,  _______,  _______,  _______,  _______,  XXXXXXX  }
+  },
+
+  /*  Game layout
+   * .--------------------------------------------..--------------------------------------------.
+   * | 1      | 2      | 3      | 4      | 5      || -      | 7      | 8      | 9      | (      |
+   * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
+   * | TAB    | Q      | W      | E      | R      || +      | 4      | 5      | 6      | )      |
+   * |--------+--------+--------+--------+--------||--------+--------+--------+--------+--------|
+   * | SHIFT  | A      | S      | D      | G      || =      | 1      | 2      | 3      | *      |
+   * '--------+--------+--------+--------+--------||--------+--------+--------+--------+--------'
+   *          | Z      | X      | C      | B      || >      |        | 0      |        |
+   *          |--------+--------+--------+--------||--------+--------+--------+--------|
+   *          | T      | ALT    | CTRL   | SPACE  ||        |        |        |        |
+   *          '-----------------------------------''-----------------------------------'
+   */
+  [_GAME] = {
+    {KC_1,        KC_2,     KC_3,     KC_4,       KC_5,  NO_MINS,  KC_7,     KC_8,     KC_9,     NO_LPRN  },
+    {KC_TAB,      KC_Q,     KC_W,     KC_E,       KC_R,  NO_PLUS,  KC_4,     KC_5,     KC_6,     NO_RPRN  },
+    {CM_LSFT,     KC_A,     KC_S,     KC_D,       KC_G,  NO_EQL,   KC_1,     KC_2,     KC_3,     NO_ASTR  },
+    {XXXXXXX,     KC_Z,     KC_X,     KC_C,       KC_B,  NO_GRTR,  _______,  KC_0,     _______,  XXXXXXX  },
+    {XXXXXXX,     KC_T,  KC_LALT, KC_LCTRL,    _______,  _______,  _______,  _______,  _______,  XXXXXXX  }
   }
 };
 
@@ -173,5 +198,8 @@ void matrix_scan_user(void) {
 
     case _FN:
       set_led_blue;
+
+    case _GAME:
+      set_led_green;
   }
 }
